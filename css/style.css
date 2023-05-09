@@ -173,27 +173,6 @@ a {
     z-index: -1
 }
 
-.show {
-    display: block;
-}
-
-.hide {
-    display: none;
-}
-
-.fade {
-    animation-name: fade;
-    animation-duration: 1.5s;
-}
-
-@keyframes fade {
-    from
-        {opacity: 0.4;}
-    to
-        {opacity: 1;}
-}
-
-
 .tabcontainer {
     display: flex;
     width: 1130px;
@@ -517,7 +496,7 @@ a {
 
 .menu__item-descr {
     margin-top: 20px;
-    padding: 0 20px
+    padding: 0 21px
 }
 
 .menu__item-divider {
@@ -734,4 +713,36 @@ a {
     display: block;
     width: 280px;
     margin: 0 auto
+}
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from
+        {opacity: 0.4;}
+    to
+        {opacity: 1;}
+}
+
+.fade-modal {
+    animation-name: fade;
+    animation-duration: 0.6s;
+}
+
+@keyframes fade-modal {
+    from
+        {opacity: 0.7;}
+    to
+        {opacity: 1;}
 }
