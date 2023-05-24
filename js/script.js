@@ -152,9 +152,9 @@ window.addEventListener('DOMContentLoaded', () => {
 	// Clone cards with classes
 
 	class MenuCard {
-		constructor(src, alt, title, descr, price, parent, ...classes) {
+		constructor(src, altimg, title, descr, price, parent, ...classes) {
 			this.src = src;
-			this.alt = alt;
+			this.altimg = altimg;
 			this.title = title;
 			this.descr = descr;
 			this.price = price;
@@ -177,7 +177,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				this.classes.forEach(className => element.classList.add(className));
 			}
 			element.innerHTML = `
-			<img src=${this.src} alt=${this.alt}>
+			<img src=${this.src} alt=${this.altimg}>
 			<h3 class="menu__item-subtitle">${this.title}</h3>
 			<div class="menu__item-descr">${this.descr}</div>
 			<div class="menu__item-divider"></div>
@@ -300,20 +300,84 @@ window.addEventListener('DOMContentLoaded', () => {
 		.then(res => console.log(res));
 
 
+	//slider
+	const slides = document.querySelectorAll('.offer__slide'),
+		  next = document.querySelector('.offer__slider-next'),
+		  prev = document.querySelector('.offer__slider-prev '),
+		  total = document.querySelector('#total'),
+		  current = document.querySelector('#current'),
+		  slidesWrapper = document.querySelector('.offer__slider-wrapper'),
+		  slidesField = slidesWrapper.querySelector('.offer__slider-inner'),
+		  width = window.getComputedStyle(slidesWrapper).width;
 
-		
+	let slideIndex = 1;
+	let offset = 0;
 
+	if (slides.length < 10) {
+		total.textContent = `0${slides.length}`;
+		current.textContent = `0${slideIndex}`;
+	} else {
+		total.textContent = slides.length;
+		current.textContent = `0${slideIndex}`;
+	};
+
+	slidesField.style.cssText = "display: flex; transition: 0.5s all";
+	slidesField.style.width = 100 * slides.length + '%';
+
+	slidesWrapper.style.overflow = 'hidden';
+
+
+	slides.forEach(slide => {
+		slide.style.width = width;
+	});
+
+	next.addEventListener('click', () => {
+		if (offset == +width.slice(0, width.length - 2) * (slides.length - 1)) {
+			offset = 0;
+		} else {
+			offset += +width.slice(0, width.length - 2);
+		}
+
+		slidesField.style.transform = `translateX(-${offset}px)`;
+
+		if (slideIndex == slides.length) {
+			slideIndex = 1;
+		} else {
+			slideIndex++;
+		}
+
+		if (slideIndex < 10) {
+			current.textContent = `0${slideIndex}`;
+		} else {
+			current.textContent = slideIndex;
+		}
+	});
+
+	prev.addEventListener('click', () => {
+		if (offset == 0) {
+			offset = +width.slice(0, width.length - 2) * (slides.length - 1);
+		} else {
+			offset -= +width.slice(0, width.length - 2);
+		}
+
+		slidesField.style.transform = `translateX(-${offset}px)`;
+//
+		if (slideIndex == 1) {
+			slideIndex = slides.length;
+		} else {
+			slideIndex--;
+		}
+//
+		if (slideIndex < 10) {
+			current.textContent = `0${slideIndex}`;
+		} else {
+			current.textContent = slideIndex;
+		}
 	});
 
 
 
 
 
-	
 
-
-
-
-
-
-
+});
